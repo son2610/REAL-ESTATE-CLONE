@@ -1,0 +1,7 @@
+
+#Creating the first Model (and Migration) ---1 Model = 1 table
+npx sequelize-cli model:generate --name User --attributes firstName:string,lastName:string,email:string
+
+#Running Migrations
+Ánh xạ data từ file trong folder migrations sang db postgres
+npx sequelize-cli db:migrate
