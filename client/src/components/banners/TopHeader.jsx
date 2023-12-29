@@ -1,10 +1,21 @@
 import React from "react";
 import { IoIosMail } from "react-icons/io";
 import { FaFacebookF, FaInstagram, FaPhone, FaYoutube } from "react-icons/fa";
+import withRouter from "~/hocs/withRouter";
+import clsx from "clsx";
+import { twMerge } from "tailwind-merge";
 
-function TopHeader() {
+const TopHeader = ({ location }) => {
+    console.log(location.pathname);
     return (
-        <div className="h-[85px] text-white border-b border-main-400 bg-transparent fixed z-50 top-0 w-full px-[100px] py-[26px] flex items-center justify-between">
+        <div
+            className={twMerge(
+                clsx(
+                    "h-[85px] text-white border-b border-main-400 bg-transparent fixed z-50 top-0 w-full px-[100px] py-[26px] flex items-center justify-between",
+                    location.pathname !== "/" && "bg-main-700"
+                )
+            )}
+        >
             <span className="flex items-center gap-2">
                 <IoIosMail />
                 <span>
@@ -27,6 +38,6 @@ function TopHeader() {
             </div>
         </div>
     );
-}
+};
 
-export default TopHeader;
+export default withRouter(TopHeader);
