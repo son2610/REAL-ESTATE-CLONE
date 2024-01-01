@@ -3,6 +3,7 @@ const express = require("express");
 require("dotenv").config();
 const cors = require("cors");
 const dbconnect = require("./config/dbconnect");
+const initRoutes = require("./routes");
 
 const app = express();
 // Cài middleware cho con app, ai được phép truy cập vào link này
@@ -21,6 +22,8 @@ app.use(
         extended: true,
     })
 );
+
+initRoutes(app); //Chạy tất cả các routes mà ta đã định nghĩa trong folder routes
 
 dbconnect();
 
