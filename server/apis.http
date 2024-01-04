@@ -4,5 +4,13 @@ Content-Type: application/json
 {
     "password": "123456",
     "name": "blueS",
-    "phone": "123456",
+    "phone": "123456"
+}
+###
+POST http://localhost:5000/api/auth/signin/
+Content-Type: application/json
+
+{
+    "password": "123456",
+    "phone": "789789"
 }
