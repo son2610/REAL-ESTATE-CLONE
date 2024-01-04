@@ -1,11 +1,17 @@
 import { Link, NavLink } from "react-router-dom";
-import { Button } from "..";
+import { Button, Login } from "..";
 import { navigations } from "~/utils/constants";
 import clsx from "clsx";
 import { twMerge } from "tailwind-merge";
 import withRouter from "~/hocs/withRouter";
+import { useUserStore } from "~/store/useUserStore";
+import { useAppStore } from "~/store/useAppStore";
 
-function Navigation({ locattion }) {
+function Navigation({ location, navigate }) {
+    const { token } = useUserStore();
+    const { setModal } = useAppStore();
+    console.log(setModal);
+
     return (
         <div className="h-[85px] bg-transparent fixed z-50 top-[85px] w-full px-[100px] py-[26px] flex items-center justify-between">
             <Link to="/">
@@ -39,16 +45,30 @@ function Navigation({ locattion }) {
                         {itemnav.text}
                     </NavLink>
                 ))}
-                <Button
-                    className={twMerge(
-                        clsx(
-                            location.pathname === "/" &&
-                                "bg-transparent border border-main-100"
-                        )
-                    )}
-                >
-                    Add Listing
-                </Button>
+                {!token ? (
+                    <Button
+                        className={twMerge(
+                            clsx(
+                                location.pathname === "/" &&
+                                    "bg-transparent border border-main-100"
+                            )
+                        )}
+                        onClick={() => setModal(true, <Login />)}
+                    >
+                        Sign in
+                    </Button>
+                ) : (
+                    <Button
+                        className={twMerge(
+                            clsx(
+                                location.pathname === "/" &&
+                                    "bg-transparent border border-main-100"
+                            )
+                        )}
+                    >
+                        Add Listing
+                    </Button>
+                )}
             </div>
         </div>
     );

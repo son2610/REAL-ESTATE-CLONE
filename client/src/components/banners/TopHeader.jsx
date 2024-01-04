@@ -1,4 +1,3 @@
-import React from "react";
 import { IoIosMail } from "react-icons/io";
 import { FaFacebookF, FaInstagram, FaPhone, FaYoutube } from "react-icons/fa";
 import withRouter from "~/hocs/withRouter";
@@ -6,7 +5,6 @@ import clsx from "clsx";
 import { twMerge } from "tailwind-merge";
 
 const TopHeader = ({ location }) => {
-    console.log(location.pathname);
     return (
         <div
             className={twMerge(

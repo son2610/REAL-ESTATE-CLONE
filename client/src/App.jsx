@@ -8,10 +8,23 @@ import {
     PublicLayout,
     Search,
 } from "./pages/public";
+import { Modal } from "./components";
+import { useAppStore } from "./store/useAppStore";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useUserStore } from "./store/useUserStore";
+import { useEffect } from "react";
 
 function App() {
+    const { isShowModal } = useAppStore();
+    const { getCurrent, current, token } = useUserStore();
+    useEffect(() => {
+        getCurrent();
+    }, [token]);
+    console.log("check current ", current);
     return (
-        <div className="">
+        <>
+            {isShowModal && <Modal />}
             <Routes>
                 <Route path={path.PUBLIC_LAYOUT} element={<PublicLayout />}>
                     <Route path={path.HOME} element={<Home />} />
@@ -21,7 +34,19 @@ function App() {
                     <Route path={path.SEARCH} element={<Search />} />
                 </Route>
             </Routes>
-        </div>
+            <ToastContainer
+                position="top-center"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="dark"
+            />
+        </>
     );
 }
 
