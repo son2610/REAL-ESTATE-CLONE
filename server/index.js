@@ -4,6 +4,7 @@ require("dotenv").config();
 const cors = require("cors");
 const dbconnect = require("./config/dbconnect");
 const initRoutes = require("./routes");
+require("./config/redis.config");
 
 const app = express();
 // Cài middleware cho con app, ai được phép truy cập vào link này
@@ -12,6 +13,7 @@ app.use(
         origin: process.env.CLIENT_URL,
     })
 );
+//
 
 // middleware xử lý data trên server: người dùng gửi data dạng mảng -> máy tính đổi thành json -> khi lên server thì sẽ được tự động đổi lại thành dạng mảng
 app.use(express.json());

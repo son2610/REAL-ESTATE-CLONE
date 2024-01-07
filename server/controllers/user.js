@@ -3,8 +3,6 @@ const asyncHandler = require("express-async-handler");
 
 const db = require("../models");
 const { throwErrorWithStatus } = require("../middlewares/errorHandler");
-const jwt = require("jsonwebtoken");
-
 const getCurrent = asyncHandler(async (req, res) => {
     // phone, password, name, role = [user,agent] => thông tin mà phía client gửi lên cho server
 

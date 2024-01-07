@@ -4,7 +4,9 @@ Content-Type: application/json
 {
     "password": "123456",
     "name": "blueS",
-    "phone": "123456"
+    "phone": "0978168374",
+    "role": "AGENT",
+    "email": "ABC@GMAIL.COM",
 }
 ###
 POST http://localhost:5000/api/auth/signin/

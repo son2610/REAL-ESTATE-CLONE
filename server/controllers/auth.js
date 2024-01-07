@@ -7,7 +7,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 const register = asyncHandler(async (req, res) => {
-    // phone, password, name, role = [user,agent] => thông tin mà phía client gửi lên cho server
+    // phone, password, name, roleCode = [user,agent] => thông tin mà phía client gửi lên cho server
 
     // Thông thường sẽ có các kiểu truyền data từ client -> server
     // 1. client = urlencoded || formdata => req.body (đây là kiểu mà ta chọn)
@@ -18,7 +18,7 @@ const register = asyncHandler(async (req, res) => {
     // Ham handler xu ly logic
     const response = await db.User.findOrCreate({
         where: { phone: phone },
-        defaults: req.body, //bởi vì ta đã validate data nên ta có thể truyền thẳng req.body để gán dữ liệu, nếu k thì ta phải ghi là default: { password, phone, name, role }
+        defaults: req.body, //bởi vì ta đã validate data nên ta có thể truyền thẳng req.body để gán dữ liệu, nếu k thì ta phải ghi là default: { password, phone, name, roleCode }
     });
     return res.json({
         success: response[1],
@@ -50,7 +50,7 @@ const signIn = asyncHandler(async (req, res, next) => {
         return throwErrorWithStatus(401, "Password is wrong", res, next);
     }
     const token = jwt.sign(
-        { uid: user.id, role: user.role },
+        { uid: user.id, roleCode: user.roleCode },
         process.env.JWT_SECRET,
         { expiresIn: "7d" }
     );
