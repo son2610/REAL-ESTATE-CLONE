@@ -1,4 +1,6 @@
 import path from "./path";
+import { LuLayoutDashboard } from "react-icons/lu";
+import { PiHouseLineBold } from "react-icons/pi";
 
 export const navigations = [
     {
@@ -25,5 +27,33 @@ export const navigations = [
         id: 5,
         path: `/${path.SEARCH}`,
         text: "SEARCH",
+    },
+];
+
+export const adminSidebar = [
+    {
+        id: 12,
+        name: "Dashboard",
+        path: `/${path.ADMIN_LAYOUT}/${path.DASHBOARD}`,
+        icon: <LuLayoutDashboard />,
+        type: "SINGLE",
+    },
+    {
+        id: 13,
+        name: "Property Types",
+        icon: <PiHouseLineBold />,
+        type: "PARENT",
+        subs: [
+            {
+                id: 131,
+                path: `/${path.ADMIN_LAYOUT}/${path.CREATE_PROPERTY_TYPE}`,
+                name: "Create New",
+            },
+            {
+                id: 132,
+                path: `/${path.ADMIN_LAYOUT}/${path.MANAGE_PROPERTY_TYPE}`,
+                name: "Manage",
+            },
+        ],
     },
 ];

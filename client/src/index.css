@@ -7,3 +7,7 @@
 html, body{
     height: 100%;
 }
+
+.otp-item {
+    width: 4rem !important;
+}

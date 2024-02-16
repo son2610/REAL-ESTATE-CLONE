@@ -6,4 +6,10 @@ export const apiGetCurrent = () =>
         method: "get",
     });
 
+export const apiGetRoles = () =>
+    axios({
+        url: "/user/roles",
+        method: "get",
+    });
+
 export default apiGetCurrent;
