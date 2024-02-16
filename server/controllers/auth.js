@@ -13,13 +13,30 @@ const register = asyncHandler(async (req, res) => {
     // 1. client = urlencoded || formdata => req.body (đây là kiểu mà ta chọn)
     // 2. client = params (?q=abczyx) => req.query
     // 3. client = api/user/:id => req.params
-    const { phone } = req.body;
+    const { phone, name, password } = req.body;
 
     // Ham handler xu ly logic
     const response = await db.User.findOrCreate({
         where: { phone: phone },
-        defaults: req.body, //bởi vì ta đã validate data nên ta có thể truyền thẳng req.body để gán dữ liệu, nếu k thì ta phải ghi là default: { password, phone, name, roleCode }
+        defaults: {
+            phone,
+            name,
+            password,
+        }, //bởi vì ta đã validate data nên ta có thể truyền thẳng req.body để gán dữ liệu, nếu k thì ta phải ghi là default: { password, phone, name, roleCode }
     });
+    const userId = response[0].id;
+    if (userId) {
+        const roleCode = ["ROLE7"];
+        if (req.body.roleCode) roleCode.push(req.body.roleCode);
+        const roleCodeBulk = roleCode.map((role) => ({
+            userId,
+            roleCode: role,
+        }));
+        const updateRole = await db.User_Role.bulkCreate(roleCodeBulk);
+        if (!updateRole) {
+            await db.User.destroy({ where: { id: userId } });
+        }
+    }
     return res.json({
         success: response[1],
         mes: response[1]

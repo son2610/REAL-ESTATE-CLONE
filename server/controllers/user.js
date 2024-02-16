@@ -19,6 +19,21 @@ const getCurrent = asyncHandler(async (req, res) => {
         attributes: {
             exclude: ["password"],
         },
+        include: [
+            {
+                model: db.User_Role,
+                attributes: ["roleCode"],
+                as: "userRoles",
+                include: [
+                    {
+                        model: db.Role,
+                        as: "roleName",
+                        attributes: ["value"],
+                        nest: false,
+                    },
+                ],
+            },
+        ],
     });
     return res.json({
         success: Boolean(response),
@@ -29,6 +44,18 @@ const getCurrent = asyncHandler(async (req, res) => {
     //
 });
 
+const getRoles = asyncHandler(async (req, res) => {
+    const response = await db.Role.findAll({
+        attributes: ["code", "value"],
+    });
+    return res.json({
+        success: Boolean(response),
+        mes: response ? "Got" : "Cannot get roles.",
+        roles: response,
+    });
+});
+
 module.exports = {
     getCurrent,
+    getRoles,
 };
